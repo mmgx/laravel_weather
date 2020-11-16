@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('auth:api')->group( function () {
+//Route::middleware('auth:sanctum')->group( function () {
     Route::apiResource('cities', CityController::class)->only(['index', 'show']);
 //});
 
