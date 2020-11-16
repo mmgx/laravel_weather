@@ -2,7 +2,7 @@
 
 namespace App\Service\Base;
 
-class BaseService
+abstract class BaseService
 {
-
+    protected $model;
 }

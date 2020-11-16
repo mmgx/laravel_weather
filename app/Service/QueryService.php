@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-class QueryService extends Base\BaseService
+class QueryService
 {
 
 }
