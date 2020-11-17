@@ -17,6 +17,7 @@
         "laravel/passport": "^10.0",
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.5",
+        "league/fractal": "^0.19.2",
         "livewire/livewire": "^2.0",
         "rappasoft/laravel-livewire-tables": "^0.3.2",
       "ext-json": "*"
