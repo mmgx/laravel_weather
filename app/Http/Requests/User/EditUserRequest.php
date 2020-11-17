@@ -6,8 +6,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class EditUserRequest
- * @package App\Http\Requests\User
+ * Class EditUserRequest.
  */
 class EditUserRequest extends FormRequest
 {
@@ -17,6 +16,16 @@ class EditUserRequest extends FormRequest
     public function authorize()
     {
         return ! ($this->user->isAdmin() && ! $this->user()->isAdmin());
+    }
+
+    /**
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            //
+        ];
     }
 
     /**

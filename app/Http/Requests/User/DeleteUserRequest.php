@@ -20,6 +20,16 @@ class DeleteUserRequest extends FormRequest
     }
 
     /**
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            //
+        ];
+    }
+
+    /**
      * @throws AuthorizationException
      */
     protected function failedAuthorization()
