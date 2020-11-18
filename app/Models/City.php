@@ -15,6 +15,10 @@ class City extends BaseModel
         'updated_at' => 'datetime',
     ];
 
+    /**
+     * Получаем все значения погоды
+     * @return HasMany
+     */
     public function weatherInfo(): HasMany
     {
         return $this->hasMany(WeatherInfo::class)->orderByDesc('updated_at');

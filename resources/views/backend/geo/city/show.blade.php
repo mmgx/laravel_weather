@@ -1,7 +1,7 @@
 @extends('layouts.base')
 @section('page_header')
-    {{ __('Список пользователей') }}
+    {{ __('Города') }}
 @endsection
 @section('slot')
-    @livewire('users-table')
+    @livewire('city-table')
 @endsection

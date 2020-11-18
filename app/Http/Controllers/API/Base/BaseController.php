@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\API\Base;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\JsonResponse;
 
 class BaseController extends Controller
 {
+    protected $response;
+
     /**
      * success response method.
      *
@@ -16,11 +19,16 @@ class BaseController extends Controller
      */
     public function sendResponse($result, $message)
     {
+
+
         $response = [
             'success' => true,
             'data'    => $result,
             'message' => $message,
         ];
+
+        $this->response = $response;
+
         return response()->json($response, 200);
     }
 
