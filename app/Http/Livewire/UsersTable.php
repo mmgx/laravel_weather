@@ -23,6 +23,7 @@ class UsersTable extends TableComponent
     public $sortField = 'name';
     public $offlineIndicator = false;
     public $loadingIndicator = false;
+    public $searchEnabled = false;
 
     /**
      * @return Builder

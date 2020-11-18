@@ -41,8 +41,11 @@ class CurrentCityTable extends TableComponent
     public function columns(): array
     {
         return [
-            Column::make(__('Id'), 'id')
-                ->sortable(),
+            Column::make(__('Время обновления (UTC+3)'))
+                ->format(function (WeatherInfo $model) {
+                    $time = Carbon::createFromFormat('Y-m-d H:i:s', $model->updated_at)->timezone('Europe/Moscow');
+                    return $time;
+                }),
             Column::make(__('Температура'))
                 ->format(function (WeatherInfo $model) {
                     return $model->temperature_c;
@@ -50,11 +53,6 @@ class CurrentCityTable extends TableComponent
             Column::make(__('Облачность'))
                 ->format(function (WeatherInfo $model) {
                     return $model->status;
-                }),
-            Column::make(__('Время обновления (UTC+3)'))
-                ->format(function (WeatherInfo $model) {
-                    $time = Carbon::createFromFormat('Y-m-d H:i:s', $model->updated_at)->timezone('Europe/Moscow');
-                    return $time;
                 }),
         ];
     }
