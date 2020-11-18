@@ -34,6 +34,9 @@ class CityController extends BaseController
      */
     public function index()
     {
+        if ($this->weatherInfoService->count() === 0){
+            return redirect()->back()->withFlashDanger(__('Информация о погоде еще не загружалась в базу. Обновить ее может администратор из меню, либо через artisan'));
+        }
         return view('backend.geo.city.index');
     }
 

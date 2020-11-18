@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\Geo\CityController;
 use App\Http\Controllers\Backend\User\UserController;
 use App\Http\Controllers\QueryController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 
@@ -66,6 +67,15 @@ Route::group([
         Route::group(['prefix' => '{city}'], function () {
             Route::get('show', [CityController::class, 'show'])->name('show');
             Route::get('history', [CityController::class, 'history'])->name('history');
+        });
+
+        Route::group([
+            'middleware' => 'isAdmin',
+        ], function () {
+            Route::get('update', function () {
+                Artisan::call('weather:all');
+                return redirect()->route('admin.geo.cities.index',)->withFlashSuccess(__('Информация о погоде обновлена'));
+            })->name('update');
         });
     });
 });
