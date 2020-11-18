@@ -32,7 +32,7 @@ class CityController extends BaseController
     {
         $product = City::find($city);
         if (is_null($city)) {
-            return $this->sendError('Product not found.');
+            return $this->sendError('City not found.');
         }
         return $this->sendResponse($product->toArray(), 'Город успешно получен');
     }
