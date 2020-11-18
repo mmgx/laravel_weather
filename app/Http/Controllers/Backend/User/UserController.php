@@ -92,7 +92,7 @@ class UserController extends BaseController
     public function update(UpdateUserRequest $request, User $user)
     {
         $this->userService->update($user, $request->validated());
-        return redirect()->route('admin.auth.user.show', $user)->withFlashSuccess(__('Пользователь успешно обновлен'));
+        return redirect()->route('admin.auth.user.index', $user)->withFlashSuccess(__('Пользователь успешно обновлен'));
     }
 
 

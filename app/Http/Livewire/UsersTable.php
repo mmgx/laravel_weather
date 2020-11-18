@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Controllers\API\UserController;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Rappasoft\LaravelLivewireTables\TableComponent;
 use Rappasoft\LaravelLivewireTables\Traits\HtmlComponents;
 use Rappasoft\LaravelLivewireTables\Views\Column;
@@ -19,6 +21,9 @@ class UsersTable extends TableComponent
      * @var string
      */
     public $sortField = 'name';
+    public $offlineIndicator = false;
+    public $loadingIndicator = false;
+    public $searchEnabled = false;
 
     /**
      * @return Builder
@@ -37,7 +42,7 @@ class UsersTable extends TableComponent
         return [
             Column::make(__('Id'), 'id')
                 ->sortable(),
-            Column::make(__('Name'), 'name')
+            Column::make(__('Имя пользователя'), 'name')
                 ->searchable()
                 ->sortable(),
             Column::make(__('E-mail'), 'email')
@@ -46,7 +51,7 @@ class UsersTable extends TableComponent
                 ->format(function (User $model) {
                     return $this->mailto($model->email);
                 }),
-            Column::make(__('Actions'))
+            Column::make(__('Действия'))
                 ->format(function (User $model) {
                     return view('backend.auth.user.includes.actions', ['user' => $model]);
                 }),

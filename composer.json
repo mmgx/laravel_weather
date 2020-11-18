@@ -9,17 +9,18 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "ext-json": "*",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/jetstream": "^1.6",
-        "laravel/passport": "^10.0",
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.5",
+        "league/fractal": "^0.19.2",
         "livewire/livewire": "^2.0",
         "rappasoft/laravel-livewire-tables": "^0.3.2",
-      "ext-json": "*"
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
