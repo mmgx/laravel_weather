@@ -1,19 +1,37 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\QueryController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+Route::group([
+    'middleware' => 'api',
+], function () {
+    Route::post('auth', [AuthController::class ,'login']);
+    Route::post('logout', [AuthController::class ,'logout']);
+    Route::post('refresh', [AuthController::class ,'refresh']);
+    Route::post('me', [AuthController::class ,'me']);
+    Route::post('registration', [AuthController::class, 'registration']);
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    Route::group([
+        'prefix' => 'users',
+    ], function () {
+        Route::get('{user}', [UserController::class ,'show']);
+        Route::get('/', [UserController::class ,'index']);
+    });
+});
+
+/**
+ * Auth api
+ */
+Route::group([
+    'middleware' => 'auth:api',
+], function () {
+    Route::group([
+        'prefix' => 'weather',
+    ], function () {
+        Route::get('city/{city}/current', [QueryController::class ,'current']);
+        Route::get('city/{city}/all', [QueryController::class ,'all']);
+    });
 });
