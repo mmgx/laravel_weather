@@ -19,9 +19,6 @@ class WeatherInfo extends BaseModel
     /**
      * Статусы обновления погоды у городов
      */
-    public const STATUS_ACTIVE = 'ACTIVE';
-    public const STATUS_INACTIVE = 'INACTIVE';
-    public static $statuses = [self::STATUS_ACTIVE, self::STATUS_INACTIVE];
 
     public function city(): BelongsTo
     {
