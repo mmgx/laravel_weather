@@ -34,6 +34,11 @@ class UsersTable extends TableComponent
         return User::query()->orderBy('id', 'asc')->withTrashed();
     }
 
+    public function view(): string
+    {
+        return 'livewire.admin.users.index';
+    }
+
     /**
      * @return array
      */

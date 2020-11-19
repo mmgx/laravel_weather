@@ -57,7 +57,7 @@ class UserController extends BaseController
     {
         $user = $this->userService->store($request->validated());
 
-        return redirect()->route('admin.auth.user.show', $user)->withFlashSuccess(__('The user was successfully created.'));
+        return redirect()->route('admin.auth.user.show', $user)->withFlashSuccess(__('Пользователь успешно создан'));
     }
 
     /**
