@@ -29,21 +29,26 @@ Route::group([
         'prefix' => 'users',
     ], function () {
         Route::get('/', [UserController::class, 'index'])->name('index');
-        Route::delete('/', [UserController::class, 'destroy'])->name('destroy');
-        Route::post('/', [UserController::class, 'store'])->name('store');
-        Route::get('create', [UserController::class, 'create'])->name('create');
-    });
 
-    Route::group(['prefix' => 'users/{user}'], function () {
-        Route::get('show', [UserController::class, 'show'])->name('show');
-        Route::get('edit', [UserController::class, 'edit'])->name('edit');
-        Route::patch('/', [UserController::class, 'update'])->name('update');
-        Route::delete('/delete', [UserController::class, 'delete'])->name('delete');
-    });
+        Route::group(['prefix' => '{user}'], function () {
+            Route::get('show', [UserController::class, 'show'])->name('show');
+            Route::get('edit', [UserController::class, 'edit'])->name('edit');
+            Route::patch('/', [UserController::class, 'update'])->name('update');
+        });
 
-    Route::group(['prefix' => 'users/{deletedUser}'], function () {
-        Route::patch('restore', [UserController::class, 'restore'])->name('restore');
-        Route::delete('destroy', [UserController::class, 'destroy'])->name('destroy');
+        Route::group(['middleware' => 'isAdmin'], function () {
+            Route::get('create', [UserController::class, 'create'])->name('create');
+            Route::post('/', [UserController::class, 'store'])->name('store');
+
+            Route::group(['prefix' => '{deletedUser}'], function () {
+                Route::patch('restore', [UserController::class, 'restore'])->name('restore');
+                Route::delete('destroy', [UserController::class, 'destroy'])->name('destroy');
+            });
+
+            Route::group(['prefix' => '{user}'], function () {
+                Route::delete('/delete', [UserController::class, 'delete'])->name('delete');
+            });
+        });
     });
 });
 
