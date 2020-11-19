@@ -26,8 +26,14 @@
                         {{ __('Погода в Саранске (без токена)') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="/test/weather/city/Саранск/all">
-                        {{ __('История изменения погоды в Саранске (без токена)') }}
+                        {{ __('История погоды в Саранске (без токена)') }}
                     </x-jet-nav-link>
+
+                    @if ($logged_in_user->id ===1)
+                        <x-jet-nav-link href="{{ route('admin.geo.cities.update') }}">
+                            {{ __('Обновить погоду') }}
+                        </x-jet-nav-link>
+                    @endif
                 </div>
             </div>
 

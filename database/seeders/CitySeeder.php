@@ -24,6 +24,9 @@ class CitySeeder extends Seeder
             ['name' => 'Берлин'],
             ['name' => 'Афины'],
             ['name' => 'Саранск'],
+            ['name' => 'Казань'],
+            ['name' => 'Сочи'],
+            ['name' => 'Ульяновск'],
         ];
 
         foreach ($cities as $city) {

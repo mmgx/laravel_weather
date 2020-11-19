@@ -22,6 +22,7 @@ class CityTable extends TableComponent
     public $sortField = 'name';
     public $offlineIndicator = false;
     public $loadingIndicator = false;
+    public $perPage = 10;
 
     /**
      * @return Builder
