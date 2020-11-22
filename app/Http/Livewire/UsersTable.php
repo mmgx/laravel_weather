@@ -31,6 +31,10 @@ class UsersTable extends TableComponent
      */
     public function query(): Builder
     {
+        if (Auth::id() !== 1){
+            return User::query()->orderBy('id', 'asc');
+        }
+
         return User::query()->orderBy('id', 'asc')->withTrashed();
     }
 
