@@ -19,7 +19,7 @@ class UpdateUserTest extends TestCase
     {
         $this->loginAsAdmin();
         $user = User::factory()->create();
-        $response = $this->get(route('admin.auth.user.edit', [ 'user' => $user->id ]));
+        $response = $this->get(route('admin.user.edit', [ 'user' => $user->id ]));
         $response->assertOk();
     }
 
@@ -41,7 +41,7 @@ class UpdateUserTest extends TestCase
             'email' => $email,
         ]);
 
-        $response = $this->patch(route('admin.auth.user.update', $user->id), [
+        $response = $this->patch(route('admin.user.update', $user->id), [
             'name' => $updatedName,
             'email' => $updatedEmail,
         ]);
@@ -59,12 +59,12 @@ class UpdateUserTest extends TestCase
     public function test_only_admin_can_view_edit_admin_page()
     {
         $admin = $this->loginAsAdmin();
-        $this->get(route('admin.auth.user.edit', [ 'user' => $admin->id ]))->assertOk();
+        $this->get(route('admin.user.edit', [ 'user' => $admin->id ]))->assertOk();
         $this->resetAuth();
 
         $user = $this->loginAsUser();
         $this->actingAs($user);
-        $response = $this->get(route('admin.auth.user.edit', [ 'user' => $admin->id ]));
+        $response = $this->get(route('admin.user.edit', [ 'user' => $admin->id ]));
         $response->assertRedirect(route('login'));
     }
 
@@ -74,7 +74,7 @@ class UpdateUserTest extends TestCase
         $admin = $this->loginAsAdmin();
         $adminName = $admin->name;
 
-        $response = $this->patch(route('admin.auth.user.update', [ 'user' => $admin->id ]), [
+        $response = $this->patch(route('admin.user.update', [ 'user' => $admin->id ]), [
             'name' => $adminName . '_upd',
             'email' => $admin->email,
         ]);

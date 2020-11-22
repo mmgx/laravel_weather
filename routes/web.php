@@ -19,7 +19,7 @@ Route::middleware(['auth:sanctum'])->get('/dashboard', function () {
 
 Route::group([
     'prefix' => 'admin',
-    'as' => 'admin.auth.user.',
+    'as' => 'admin.user.',
     'middleware' => 'auth:sanctum',
 ], function () {
 

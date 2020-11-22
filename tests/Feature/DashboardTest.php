@@ -24,7 +24,7 @@ class DashboardTest extends TestCase
     public function test_admin_can_visit_user_create_page()
     {
         $this->loginAsAdmin();
-        $response = $this->get(route('admin.auth.user.create'));
+        $response = $this->get(route('admin.user.create'));
         $response->assertOk();
     }
 
@@ -34,7 +34,7 @@ class DashboardTest extends TestCase
     public function test_user_can_not_visit_user_create_page()
     {
         $this->loginAsUser();
-        $response = $this->get(route('admin.auth.user.create'));
+        $response = $this->get(route('admin.user.create'));
         $response->assertRedirect(route('dashboard'));
     }
 
