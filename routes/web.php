@@ -95,7 +95,7 @@ Route::group([
     Route::group([
         'prefix' => 'test/weather',
     ], function () {
-        Route::get('city/{city}/current', [QueryController::class ,'current']);
-        Route::get('city/{city}/all', [QueryController::class ,'all']);
+        Route::get('city/{city}/current', [QueryController::class ,'current'])->name('test.weather.current');
+        Route::get('city/{city}/all', [QueryController::class ,'all'])->name('test.weather.all');
     });
 });
