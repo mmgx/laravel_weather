@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\User\UserController;
 use App\Http\Controllers\QueryController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 
 Route::get('/', function () {
@@ -79,7 +80,8 @@ Route::group([
         ], function () {
             Route::get('update', function () {
                 Artisan::call('weather:all');
-                return redirect()->route('admin.geo.cities.index',)->withFlashSuccess(__('Информация о погоде обновлена'));
+                Session::flash('toast_success', __('Погода успешно обновлена'));
+                return redirect()->route('admin.geo.cities.index',);
             })->name('update');
         });
     });
