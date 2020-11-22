@@ -21,6 +21,9 @@
                     <x-jet-nav-link href="{{ route('admin.geo.cities.index') }}" :active="request()->routeIs('admin.geo.cities.index')">
                         {{ __('Погода в городах') }}
                     </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('admin.geo.cities.arbitrary') }}" :active="request()->routeIs('admin.geo.cities.arbitrary')">
+                        {{ __('Погода в произвольном городе с сайта openweathermap.org') }}
+                    </x-jet-nav-link>
 
                     <x-jet-nav-link href="/test/weather/city/Саранск/current">
                         {{ __('Погода в Саранске (без токена)') }}

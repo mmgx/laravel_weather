@@ -17,4 +17,9 @@ class QueryService
         $cities = City::all();
         $this->weatherService->query(env('OPENWEATHER_KEY'), $cities);
     }
+
+    public function queryCity(string $cityName)
+    {
+        return $this->weatherService->queryExt(env('OPENWEATHER_KEY'), $cityName);
+    }
 }

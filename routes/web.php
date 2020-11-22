@@ -69,6 +69,7 @@ Route::group([
     ], function () {
 
         Route::get('/', [CityController::class, 'index'])->name('index');
+        Route::get('/arbitrary', [CityController::class, 'arbitrary'])->name('arbitrary');
 
         Route::group(['prefix' => '{city}'], function () {
             Route::get('show', [CityController::class, 'show'])->name('show');

@@ -39,3 +39,7 @@
 @if(Session::has('toast_success'))
     @include('includes.script.toast_success')
 @endif
+
+@if(Session::has('weather'))
+    @include('includes.script.weather')
+@endif
