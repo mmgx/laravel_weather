@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use App\Models\City as Model;
+use Illuminate\Support\Facades\Artisan;
 
 class CitySeeder extends Seeder
 {
@@ -41,5 +42,7 @@ class CitySeeder extends Seeder
                 ]);
             }
         }
+
+        Artisan::call('weather:all');
     }
 }

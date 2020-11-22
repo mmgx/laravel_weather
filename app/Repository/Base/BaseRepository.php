@@ -2,6 +2,7 @@
 
 namespace App\Repository\Base;
 
+use App\Exceptions\GeneralException;
 use Exception;
 use Illuminate\Container\Container as Application;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -37,12 +38,17 @@ abstract class BaseRepository
         $this->makeModel();
     }
 
+    /**
+     * @return Model|mixed|object
+     * @throws GeneralException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function makeModel()
     {
         $model = $this->app->make($this->model());
 
         if (!$model instanceof Model) {
-            throw new \RuntimeException("Class {$this->model()} must be an instance of Illuminate\\Database\\Eloquent\\Model");
+            throw new GeneralException("Class {$this->model()} must be an instance of Illuminate\\Database\\Eloquent\\Model");
         }
 
         return $this->model = $model;

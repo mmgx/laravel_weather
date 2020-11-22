@@ -13,7 +13,7 @@
 
                 @if ((auth()->user()->id) === 1)
                     <x-utils.form-button
-                        :action="route('admin.auth.user.create')"
+                        :action="route('admin.user.create')"
                         method="get"
                         button-class="btn btn-info btn-sm"
                         icon="fas fa-sync-alt"

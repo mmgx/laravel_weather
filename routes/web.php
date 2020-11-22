@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\User\UserController;
 use App\Http\Controllers\QueryController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 
 Route::get('/', function () {
@@ -18,7 +19,7 @@ Route::middleware(['auth:sanctum'])->get('/dashboard', function () {
 
 Route::group([
     'prefix' => 'admin',
-    'as' => 'admin.auth.user.',
+    'as' => 'admin.user.',
     'middleware' => 'auth:sanctum',
 ], function () {
 
@@ -68,6 +69,7 @@ Route::group([
     ], function () {
 
         Route::get('/', [CityController::class, 'index'])->name('index');
+        Route::get('/arbitrary', [CityController::class, 'arbitrary'])->name('arbitrary');
 
         Route::group(['prefix' => '{city}'], function () {
             Route::get('show', [CityController::class, 'show'])->name('show');
@@ -79,7 +81,8 @@ Route::group([
         ], function () {
             Route::get('update', function () {
                 Artisan::call('weather:all');
-                return redirect()->route('admin.geo.cities.index',)->withFlashSuccess(__('Информация о погоде обновлена'));
+                Session::flash('toast_success', __('Погода успешно обновлена'));
+                return redirect()->route('admin.geo.cities.index',);
             })->name('update');
         });
     });
@@ -93,7 +96,7 @@ Route::group([
     Route::group([
         'prefix' => 'test/weather',
     ], function () {
-        Route::get('city/{city}/current', [QueryController::class ,'current']);
-        Route::get('city/{city}/all', [QueryController::class ,'all']);
+        Route::get('city/{city}/current', [QueryController::class ,'current'])->name('test.weather.current');
+        Route::get('city/{city}/all', [QueryController::class ,'all'])->name('test.weather.all');
     });
 });

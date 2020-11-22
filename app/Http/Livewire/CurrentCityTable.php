@@ -32,7 +32,7 @@ class CurrentCityTable extends TableComponent
      */
     public function query(): Builder
     {
-        return WeatherInfo::query()->where('city_id', $this->city->id);
+        return WeatherInfo::query()->where('city_id', $this->city->id)->orderByDesc('updated_at');
     }
 
     /**
@@ -50,7 +50,7 @@ class CurrentCityTable extends TableComponent
                 ->format(function (WeatherInfo $model) {
                     return $model->temperature_c;
                 }),
-            Column::make(__('Облачность'))
+            Column::make(__('Осадки'))
                 ->format(function (WeatherInfo $model) {
                     return $model->status;
                 }),

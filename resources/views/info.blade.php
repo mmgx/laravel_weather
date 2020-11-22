@@ -13,7 +13,7 @@
 <br><br>
 <b>Получение временного токена:</b><br>
 <b>Postman:</b>
-<pre>url: /api/auth</pre>
+<pre>url: {{ env('APP_URL') . '/api/auth' }}</pre>
 
 Headers:<br>
 Content-Type : application/x-www-form-urlencoded<br>
@@ -25,6 +25,6 @@ password : password<br>
 <br>
 <br>
 <b>Адрес запроса текущей температуры (с токеном)</b><br>
-<pre>/api/weather/city/{city}/current</pre><br>
+<pre>{{  env('APP_URL') . '/api/weather/city/{city}/current'}}</pre><br>
 <b>Адрес запроса истории изменения температур указанного города (с токеном)</b><br>
-<pre>/api/weather/city/{city}/all</pre>
+<pre>{{ env('APP_URL') . '/api/weather/city/{city}/all' }}</pre>

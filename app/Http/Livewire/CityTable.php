@@ -19,7 +19,6 @@ class CityTable extends TableComponent
     /**
      * @var string
      */
-    public $sortField = 'name';
     public $offlineIndicator = false;
     public $loadingIndicator = false;
     public $perPage = 10;
@@ -48,7 +47,7 @@ class CityTable extends TableComponent
                 ->format(function (City $model) {
                     return $model->weatherInfo()->first()->temperature_c;
                 }),
-            Column::make(__('Облачность'))
+            Column::make(__('Осадки'))
                 ->format(function (City $model) {
                     return $model->weatherInfo()->first()->status;
                 }),
