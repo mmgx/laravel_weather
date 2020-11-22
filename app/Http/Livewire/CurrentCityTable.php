@@ -50,7 +50,7 @@ class CurrentCityTable extends TableComponent
                 ->format(function (WeatherInfo $model) {
                     return $model->temperature_c;
                 }),
-            Column::make(__('Облачность'))
+            Column::make(__('Осадки'))
                 ->format(function (WeatherInfo $model) {
                     return $model->status;
                 }),
