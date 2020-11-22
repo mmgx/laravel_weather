@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @livewireStyles
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 
 <body class="font-sans antialiased">
