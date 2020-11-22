@@ -3,6 +3,7 @@
 namespace Tests\Feature\Users;
 
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -11,6 +12,8 @@ use Tests\TestCase;
  */
 class CreateUserTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** администратор может открыть страницу создания пользователей */
     public function test_admin_can_visit_create_user_page()
     {
@@ -31,7 +34,7 @@ class CreateUserTest extends TestCase
     public function test_create_user_requires_validation()
     {
         $this->loginAsAdmin();
-        $response = $this->post('/admin/users');
+        $response = $this->post(route('admin.auth.user.store'));
         $response->assertSessionHasErrors(['name', 'email']);
     }
 
@@ -48,7 +51,7 @@ class CreateUserTest extends TestCase
             'email' => $email,
         ]);
 
-        $response = $this->post('/admin/users', [
+        $response = $this->post(route('admin.auth.user.store'), [
             'name' => $name,
             'email' => $email,
         ]);
@@ -63,7 +66,7 @@ class CreateUserTest extends TestCase
         $name = $this->randomName();
         $email = $this->randomEmail();
 
-        $response = $this->post('/admin/users', [
+        $response = $this->post(route('admin.auth.user.store'), [
             'name' => $name,
             'email' => $email,
             'password' => 'password',
@@ -88,7 +91,7 @@ class CreateUserTest extends TestCase
         $name = $this->randomName();
         $email = $this->randomEmail();
 
-        $response = $this->post('/admin/users', [
+        $response = $this->post(route('admin.auth.user.store'), [
             'name' => $name,
             'email' => $email,
             'password' => 'password',

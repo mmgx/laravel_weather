@@ -1,6 +1,8 @@
 <?php
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 /**
@@ -8,6 +10,8 @@ use Tests\TestCase;
  */
 class DashboardTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** неаутентифицированный пользователь редиректится на страницу login */
     public function test_unauthenticated_users_cant_access_admin_dashboard()
     {
