@@ -32,7 +32,7 @@ class CurrentCityTable extends TableComponent
      */
     public function query(): Builder
     {
-        return WeatherInfo::query()->where('city_id', $this->city->id);
+        return WeatherInfo::query()->where('city_id', $this->city->id)->orderByDesc('updated_at');
     }
 
     /**
