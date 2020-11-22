@@ -18,7 +18,7 @@ class CreateUserTest extends TestCase
     public function test_admin_can_visit_create_user_page()
     {
         $this->loginAsAdmin();
-        $response = $this->get(route('admin.auth.user.create'));
+        $response = $this->get(route('admin.user.create'));
         $response->assertOk();
     }
 
@@ -26,7 +26,7 @@ class CreateUserTest extends TestCase
     public function test_user_can_not_visit_create_user_page()
     {
         $this->loginAsUser();
-        $response = $this->get(route('admin.auth.user.create'));
+        $response = $this->get(route('admin.user.create'));
         $response->assertSessionHas('flash_danger', __('У вас нет доступа'));
     }
 
@@ -34,7 +34,7 @@ class CreateUserTest extends TestCase
     public function test_create_user_requires_validation()
     {
         $this->loginAsAdmin();
-        $response = $this->post(route('admin.auth.user.store'));
+        $response = $this->post(route('admin.user.store'));
         $response->assertSessionHasErrors(['name', 'email']);
     }
 
@@ -51,7 +51,7 @@ class CreateUserTest extends TestCase
             'email' => $email,
         ]);
 
-        $response = $this->post(route('admin.auth.user.store'), [
+        $response = $this->post(route('admin.user.store'), [
             'name' => $name,
             'email' => $email,
         ]);
@@ -66,7 +66,7 @@ class CreateUserTest extends TestCase
         $name = $this->randomName();
         $email = $this->randomEmail();
 
-        $response = $this->post(route('admin.auth.user.store'), [
+        $response = $this->post(route('admin.user.store'), [
             'name' => $name,
             'email' => $email,
             'password' => 'password',
@@ -91,7 +91,7 @@ class CreateUserTest extends TestCase
         $name = $this->randomName();
         $email = $this->randomEmail();
 
-        $response = $this->post(route('admin.auth.user.store'), [
+        $response = $this->post(route('admin.user.store'), [
             'name' => $name,
             'email' => $email,
             'password' => 'password',

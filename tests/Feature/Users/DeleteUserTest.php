@@ -20,7 +20,7 @@ class DeleteUserTest extends TestCase
         $this->loginAsAdmin();
 
         $user = User::factory()->create();
-        $response = $this->delete(route('admin.auth.user.delete', ['user' => $user->id]));
+        $response = $this->delete(route('admin.user.delete', ['user' => $user->id]));
         $response->assertSessionHas(['toast_success' => __('Успешно удален пользователь ' . $user->email)]);
         $this->assertSoftDeleted('users', ['id' => $user->id]);
     }
@@ -31,7 +31,7 @@ class DeleteUserTest extends TestCase
         $this->loginAsUser();
 
         $user = User::factory()->create();
-        $response = $this->delete(route('admin.auth.user.delete', ['user' => $user->id]));
+        $response = $this->delete(route('admin.user.delete', ['user' => $user->id]));
         $response->assertRedirect(route('dashboard'));
         $response->assertSessionHas('flash_danger', __('У вас нет доступа'));
     }
@@ -41,9 +41,9 @@ class DeleteUserTest extends TestCase
     {
         $this->loginAsAdmin();
         $user = User::factory()->create();
-        $this->delete(route('admin.auth.user.delete', ['user' => $user->id]));
+        $this->delete(route('admin.user.delete', ['user' => $user->id]));
         $this->assertSoftDeleted('users', ['id' => $user->id]);
-        $response = $this->delete(route('admin.auth.user.destroy', ['deletedUser' => $user->id]));
+        $response = $this->delete(route('admin.user.destroy', ['deletedUser' => $user->id]));
         $response->assertSessionHas(['toast_success' => __('Успешно уничтожен пользователь ' . $user->email)]);
         $this->assertDatabaseMissing('users', ['id' => $user->id]);
     }
@@ -53,7 +53,7 @@ class DeleteUserTest extends TestCase
     {
         $this->loginAsUser();
         $user = User::factory()->create();
-        $response = $this->delete(route('admin.auth.user.destroy', ['deletedUser' => $user->id]));
+        $response = $this->delete(route('admin.user.destroy', ['deletedUser' => $user->id]));
         $response->assertSessionHas(['flash_danger' => __('У вас нет доступа')]);
         $this->assertDatabaseHas('users', ['id' => $user->id]);
     }
@@ -63,9 +63,9 @@ class DeleteUserTest extends TestCase
     {
         $this->loginAsAdmin();
         $user = User::factory()->create();
-        $this->delete(route('admin.auth.user.delete', ['user' => $user->id]));
+        $this->delete(route('admin.user.delete', ['user' => $user->id]));
         $this->assertSoftDeleted('users', ['id' => $user->id]);
-        $response = $this->patch(route('admin.auth.user.restore', ['deletedUser' => $user->id]));
+        $response = $this->patch(route('admin.user.restore', ['deletedUser' => $user->id]));
         $response->assertSessionHas(['toast_success' => __('Успешно восстановлен пользователь ' . $user->email)]);
         $this->assertDatabaseHas('users', ['id' => $user->id]);
     }
@@ -75,7 +75,7 @@ class DeleteUserTest extends TestCase
     {
         $this->loginAsUser();
         $user = User::factory()->create(['deleted_at' => Carbon::now()]);
-        $response = $this->patch(route('admin.auth.user.restore', ['deletedUser' => $user->id]));
+        $response = $this->patch(route('admin.user.restore', ['deletedUser' => $user->id]));
         $response->assertSessionHas(['flash_danger' => __('У вас нет доступа')]);
         $this->assertDatabaseHas('users', ['id' => $user->id]);
     }

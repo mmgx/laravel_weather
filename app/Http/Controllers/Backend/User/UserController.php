@@ -61,7 +61,7 @@ class UserController extends BaseController
     {
         $user = $this->userService->store($request->validated());
         $request->session()->flash('toast_success', __('Успешно создан пользователь ' . $user->email));
-        return redirect()->route('admin.auth.user.index', $user);
+        return redirect()->route('admin.user.index', $user);
     }
 
     /**
@@ -97,7 +97,7 @@ class UserController extends BaseController
     {
         $this->userService->update($user, $request->validated());
         $request->session()->flash('toast_success', __('Успешно обновлен пользователь ' . $user->email));
-        return redirect()->route('admin.auth.user.index', $user);
+        return redirect()->route('admin.user.index', $user);
     }
 
 
@@ -105,14 +105,14 @@ class UserController extends BaseController
     {
         $this->userService->delete($user);
         $request->session()->flash('toast_success', __('Успешно удален пользователь ' . $user->email));
-        return redirect()->route('admin.auth.user.index');
+        return redirect()->route('admin.user.index');
     }
 
     public function destroy(DeleteUserRequest $request, User $user)
     {
         if ($this->userService->destroy($user)){
             $request->session()->flash('toast_success', __('Успешно уничтожен пользователь ' . $user->email));
-            return redirect(route('admin.auth.user.index'));
+            return redirect(route('admin.user.index'));
         };
 
     }
@@ -127,7 +127,7 @@ class UserController extends BaseController
     {
         if ($user->restore()) {
             $request->session()->flash('toast_success', __('Успешно восстановлен пользователь ' . $user->email));
-            return redirect(route('admin.auth.user.index'));
+            return redirect(route('admin.user.index'));
         }
 
         throw new GeneralException(__('Возникла проблема при восстановлении пользователя'));
