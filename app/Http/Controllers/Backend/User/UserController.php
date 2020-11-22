@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Backend\User;
 
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\API\Base\BaseController;
 use App\Http\Requests\User\DeleteUserRequest;
 use App\Http\Requests\User\EditUserRequest;
+use App\Http\Requests\User\RestoreUserRequest;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
@@ -12,6 +14,8 @@ use App\Service\UserService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 
 /**
  * Class UserController.
@@ -56,8 +60,8 @@ class UserController extends BaseController
     public function store(StoreUserRequest $request)
     {
         $user = $this->userService->store($request->validated());
-
-        return redirect()->route('admin.auth.user.show', $user)->withFlashSuccess(__('Пользователь успешно создан'));
+        $request->session()->flash('toast_success', __('Успешно создан пользователь ' . $user->email));
+        return redirect()->route('admin.auth.user.index', $user);
     }
 
     /**
@@ -92,31 +96,42 @@ class UserController extends BaseController
     public function update(UpdateUserRequest $request, User $user)
     {
         $this->userService->update($user, $request->validated());
-        return redirect()->route('admin.auth.user.index', $user)->withFlashSuccess(__('Пользователь успешно обновлен'));
+        $request->session()->flash('toast_success', __('Успешно обновлен пользователь ' . $user->email));
+        return redirect()->route('admin.auth.user.index', $user);
     }
 
 
     public function delete(DeleteUserRequest $request, User $user)
     {
         $this->userService->delete($user);
-
-        return redirect()->route('admin.auth.user.index')->withFlashSuccess(__('Пользователь успешно удален.'));
+        $request->session()->flash('toast_success', __('Успешно удален пользователь ' . $user->email));
+        return redirect()->route('admin.auth.user.index');
     }
 
     public function destroy(DeleteUserRequest $request, User $user)
     {
         if ($this->userService->destroy($user)){
-            return redirect(route('admin.auth.user.index'))->withFlashSuccess(__('Пользователь успешно уничтожен'));
+            $request->session()->flash('toast_success', __('Успешно уничтожен пользователь ' . $user->email));
+            return redirect(route('admin.auth.user.index'));
         };
 
     }
 
-    public function restore(User $user)
+    /**
+     * @param RestoreUserRequest $request
+     * @param User $user
+     * @return Application|RedirectResponse|Redirector
+     * @throws GeneralException
+     */
+    public function restore(RestoreUserRequest $request, User $user)
     {
         if ($user->restore()) {
-            return redirect(route('admin.auth.user.index'))->withFlashSuccess(__('Пользователь успешно восстановлен'));
+            $request->session()->flash('toast_success', __('Успешно восстановлен пользователь ' . $user->email));
+            return redirect(route('admin.auth.user.index'));
         }
 
-        throw new \RuntimeException(__('Возникла проблема при восстановлении пользователя'));
+        throw new GeneralException(__('Возникла проблема при восстановлении пользователя'));
     }
+
+
 }
