@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\User;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -39,5 +40,13 @@ class StoreUserRequest extends FormRequest
         return [
 
         ];
+    }
+
+    /**
+     * @throws AuthorizationException
+     */
+    protected function failedAuthorization()
+    {
+        throw new AuthorizationException(__('Ошибка при создании пользователя'));
     }
 }
