@@ -24,6 +24,7 @@ class UsersTable extends TableComponent
     public $offlineIndicator = false;
     public $loadingIndicator = false;
     public $searchEnabled = false;
+    public $paginationEnabled = false;
 
     /**
      * @return Builder
@@ -31,6 +32,10 @@ class UsersTable extends TableComponent
      */
     public function query(): Builder
     {
+        if (Auth::id() !== 1){
+            return User::query()->orderBy('id', 'asc');
+        }
+
         return User::query()->orderBy('id', 'asc')->withTrashed();
     }
 

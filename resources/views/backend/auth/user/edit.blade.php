@@ -11,7 +11,7 @@
         <br>
 
         <x-slot name="body">
-            <x-forms.patch :action="route('admin.auth.user.update', $user)">
+            <x-forms.patch :action="route('admin.user.update', $user)">
 
                 <div class="form-group row">
                     <label for="name" class="col-md-2 col-form-label">@lang('Name')</label>
@@ -33,7 +33,7 @@
                 <button class="btn btn-sm btn-primary float-right" type="submit">@lang('Обновить')</button>
             </x-forms.patch>
 
-            <x-utils.view-button :href="route('admin.auth.user.index')" :text="__('Назад')"/>
+            <x-utils.view-button :href="route('admin.user.index')" :text="__('Назад')"/>
         </x-slot>
     </x-backend.card>
 @endsection

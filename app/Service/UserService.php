@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Exceptions\GeneralException;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Exception;
@@ -21,6 +22,7 @@ class UserService extends Base\BaseService
     /**
      * @param User $user
      * @return User
+     * @throws GeneralException
      */
     public function restore(User $user): User
     {
@@ -28,7 +30,7 @@ class UserService extends Base\BaseService
             return $user;
         }
 
-        throw new \RuntimeException(__('Возникла проблема при восстановлении пользователя'));
+        throw new GeneralException(__('Возникла проблема при восстановлении пользователя'));
     }
 
     /**
@@ -48,7 +50,7 @@ class UserService extends Base\BaseService
 
         } catch (Exception $e) {
             DB::rollBack();
-            throw new \RuntimeException(__('Возникла проблема при обновлении пользователя'));
+            throw new GeneralException(__('Возникла проблема при обновлении пользователя'));
         }
 
         DB::commit();
@@ -58,14 +60,14 @@ class UserService extends Base\BaseService
     public function delete(User $user): User
     {
         if ($user->id === auth()->id()) {
-            throw new \RuntimeException(__('You can not delete yourself.'));
+            throw new GeneralException(__('You can not delete yourself.'));
         }
 
         if ($this->deleteById($user->id)) {
             return $user;
         }
 
-        throw new \RuntimeException('Возникла ошибка при удалении пользователя');
+        throw new GeneralException('Возникла ошибка при удалении пользователя');
     }
 
     public function destroy(User $user): bool
@@ -74,7 +76,7 @@ class UserService extends Base\BaseService
             return true;
         }
 
-        throw new \RuntimeException(__('Возникла проблема при перманентном удалении пользователя'));
+        throw new GeneralException(__('Возникла проблема при перманентном удалении пользователя'));
     }
 
     /**
@@ -95,7 +97,7 @@ class UserService extends Base\BaseService
         } catch (Exception $e) {
             DB::rollBack();
 
-            throw new \RuntimeException(__('Возникла проблема при создании пользователя.'));
+            throw new GeneralException(__('Возникла проблема при создании пользователя.'));
         }
 
         DB::commit();

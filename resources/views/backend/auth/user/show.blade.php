@@ -29,7 +29,7 @@
                     <td>{{ $user->created_at }}</td>
                 </tr>
             </table>
-            <x-utils.view-button :href="route('admin.auth.user.index')" :text="__('Назад')"/>
+            <x-utils.view-button :href="route('admin.user.index')" :text="__('Назад')"/>
         </x-slot>
     </x-backend.card>
 @endsection

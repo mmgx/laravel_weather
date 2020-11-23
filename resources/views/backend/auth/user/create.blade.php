@@ -12,7 +12,7 @@
         <br>
 
         <x-slot name="body">
-            <x-forms.post :action="route('admin.auth.user.store')">
+            <x-forms.post :action="route('admin.user.store')">
 
                         <div class="form-group row">
                             <label for="name" class="col-md-2 col-form-label">@lang('Имя')</label>
@@ -56,7 +56,7 @@
                 <button class="btn btn-sm btn-primary float-right" type="submit">@lang('Создать')</button>
             </x-forms.post>
 
-            <x-utils.view-button :href="route('admin.auth.user.index')" :text="__('Назад')"/>
+            <x-utils.view-button :href="route('admin.user.index')" :text="__('Назад')"/>
         </x-slot>
     </x-backend.card>
 @endsection

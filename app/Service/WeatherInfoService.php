@@ -55,4 +55,32 @@ class WeatherInfoService extends Base\BaseService
 
         return $result;
     }
+
+    public function response(Client $client, string $apiKey, $city){
+        return $client->get('data/2.5/weather', [
+            'query' => [
+                'APPID' => $apiKey,
+                'q' => $city,
+                'units' => 'metric',
+            ]
+        ]);
+    }
+
+    public function queryExt(string $apiKey, $city)
+    {
+        $uri = env('OPENWEATHER_SITE', 'https://api.openweathermap.org');
+        $result = new Collection();
+
+        $http = new Client(['base_uri' => $uri]);
+
+        try {
+            $response = $this->response($http, $apiKey, $city);
+            $response = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+            $result->push($response);
+            return $result;
+
+        } catch (\Exception $e) {
+            throw new \App\Exceptions\GeneralException(__('Введенный город не найден'));
+        }
+    }
 }
