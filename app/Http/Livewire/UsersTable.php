@@ -24,6 +24,7 @@ class UsersTable extends TableComponent
     public $offlineIndicator = false;
     public $loadingIndicator = false;
     public $searchEnabled = false;
+    public $paginationEnabled = false;
 
     /**
      * @return Builder
